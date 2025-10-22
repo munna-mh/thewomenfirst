@@ -1,0 +1,23 @@
+name: PHP Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  phplint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+      - name: Install Composer (if needed)
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"; php composer-setup.php --quiet; php -r "unlink('composer-setup.php');"
+      - name: Run PHP lint
+        run: |
+          find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 -P4 php -l

@@ -1,0 +1,8 @@
+# Ensure consistent handling of line endings and linguist settings
+* text=auto
+*.php text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+
+[*.po]
+charset=UTF-8
